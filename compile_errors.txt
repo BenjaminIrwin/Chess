@@ -1,0 +1,83 @@
+In file included from pawn.h:5,
+                 from ChessBoard.h:5,
+                 from ChessMain.cpp:1:
+piece.h:9:9: error: declaration of 'colour Piece::colour' [-fpermissive]
+  colour colour;
+         ^~~~~~
+In file included from ChessBoard.h:4,
+                 from ChessMain.cpp:1:
+helper.h:6:6: error: changes meaning of 'colour' from 'enum colour' [-fpermissive]
+ enum colour {Black, White};
+      ^~~~~~
+In file included from pawn.h:5,
+                 from ChessBoard.h:5,
+                 from ChessMain.cpp:1:
+piece.h:12:7: warning: unnecessary parentheses in declaration of 'colour' [-Wparentheses]
+  Piece(colour)
+       ^
+piece.h:13:35: error: field 'colour' has incomplete type 'Piece'
+   {colour(colour), hasMoved(false)};
+                                   ^
+piece.h:6:7: note: definition of 'class Piece' is not complete until the closing brace
+ class Piece {
+       ^~~~~
+piece.h:13:35: error: declaration of '<typeprefixerror>Piece::colour' [-fpermissive]
+   {colour(colour), hasMoved(false)};
+                                   ^
+In file included from ChessBoard.h:4,
+                 from ChessMain.cpp:1:
+helper.h:6:6: error: changes meaning of 'colour' from 'enum colour' [-fpermissive]
+ enum colour {Black, White};
+      ^~~~~~
+In file included from pawn.h:5,
+                 from ChessBoard.h:5,
+                 from ChessMain.cpp:1:
+piece.h:13:35: error: redeclaration of '<typeprefixerror>Piece::colour'
+   {colour(colour), hasMoved(false)};
+                                   ^
+piece.h:9:9: note: previous declaration 'colour Piece::colour'
+  colour colour;
+         ^~~~~~
+piece.h:16:10: error: invalid use of destructor '~Piece' as a type
+  virtual ~Piece{};
+          ^
+piece.h:19:22: error: extra qualification 'Piece::' on member 'getSymbol' [-fpermissive]
+  virtual std::string Piece::getSymbol() = 0;
+                      ^~~~~
+In file included from ChessBoard.h:5,
+                 from ChessMain.cpp:1:
+pawn.h:11:13: error: expected ')' before 'side'
+  Pawn(colour side)
+      ~      ^~~~~
+             )
+In file included from ChessBoard.h:6,
+                 from ChessMain.cpp:1:
+bishop.h:11:15: error: expected ')' before 'side'
+  Bishop(colour side)
+        ~      ^~~~~
+               )
+In file included from ChessBoard.h:7,
+                 from ChessMain.cpp:1:
+king.h:12:13: error: expected ')' before 'side'
+  King(colour side)
+      ~      ^~~~~
+             )
+In file included from ChessBoard.h:8,
+                 from ChessMain.cpp:1:
+queen.h:11:14: error: expected ')' before 'side'
+  Queen(colour side)
+       ~      ^~~~~
+              )
+In file included from ChessBoard.h:9,
+                 from ChessMain.cpp:1:
+knight.h:11:15: error: expected ')' before 'side'
+  Knight(colour side)
+        ~      ^~~~~
+               )
+In file included from ChessBoard.h:10,
+                 from ChessMain.cpp:1:
+rook.h:12:13: error: expected ')' before 'side'
+  Rook(colour side)
+      ~      ^~~~~
+             )
+make: *** [ChessMain.o] Error 1

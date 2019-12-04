@@ -1,26 +1,25 @@
-#IFNDEF PIECE_H
-#DEFINE PIECE_H
+#ifndef PIECE_H
+#define PIECE_H
+
+#include "helper.h"
 
 class Piece {
 public:
+	colour side;
+	bool hasMoved;
 
 //Piece constructor
-	Piece(colour, std::string name, square position) 
-		{colour(colour), name(name), hasMoved(false)};
+	Piece(colour side) : side(side), hasMoved(false) {};
 
-	virtual Piece{};
+//Piece destructor
+//	virtual ~Piece{};
 
-	std::string getName();
+//PURE virtual
+	virtual char getSymbol() = 0;
+	virtual bool isMoveValid(int originColumn, int originRow, int destinationColumn,
+														int destinationRow) = 0;
 
-	std::string getColour();
-
-	std::string getPossibleMoves();
-
-protected:
-
-	bool hasMoved;
-	square position;
-	colour colour;
+//	std::string getPossibleMoves();
 
 };
 

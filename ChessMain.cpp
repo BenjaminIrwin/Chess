@@ -13,18 +13,18 @@ int main() {
 	ChessBoard cb;
 	cout << '\n';
 
-	cb.submitMove("D7", "D6");
+	cb.submitMove("H8", "E6");
 	cout << '\n';
 
-	cb.submitMove("D4", "H6");
+	cb.submitMove("A8", "C4");
 	cout << '\n';
 
-	cb.submitMove("D2", "D4");
+	cb.submitMove("A1", "C8");
 	cout << '\n';
 
-	cb.submitMove("F8", "B4");
+	cb.submitMove("H1", "G4");
 	cout << '\n';
-
+/*
 	cout << "=========================\n";
 	cout << "Alekhine vs. Vasic (1931)\n";
 	cout << "=========================\n\n";
@@ -74,6 +74,6 @@ int main() {
 
 	cb.submitMove("D3", "G6");
 	cout << '\n';
-
+*/
 	return 0;
 }

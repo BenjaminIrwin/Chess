@@ -1,17 +1,26 @@
-#IFNDEF PAWN_H
-#DEFINE PAWN_H
+#ifndef PAWN_H
+#define PAWN_H
+
+#include "helper.h"
+#include "piece.h"
+
+class ChessBoard;
 
 class Pawn : public Piece {
 public:
+	ChessBoard* board;
 
-//Piece constructor
-	Pawn(colour side, std::string name, square position) 
-		: Piece(side, name, position);
+//Pawn constructor
+	Pawn(colour side, ChessBoard* board) : Piece(side), board(board) {};
 
-	~Pawn() override {};
+//Pawn destructor
+	~Pawn() {};
 
-	bool isMoveValid();
+//Symbol getter for print
+	char getSymbol();
+
+	bool isMoveValid(int originColumn, int originRow, int destinationColumn,
+														int destinationRow);
 };
-
 
 #endif
