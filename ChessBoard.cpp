@@ -1,12 +1,20 @@
 #include"ChessBoard.h"
+#include "pawn.h"
+#include "rook.h"
+#include "queen.h"
+#include "king.h"
+#include "bishop.h"
+#include "knight.h"
+#include <string>
+#include <iostream>
 
 using namespace std;
 
 ChessBoard::ChessBoard()
 {
 		initChessBoard();
-};
-
+//		configureShadowboard();
+}
 
 void ChessBoard::initChessBoard()
 {
@@ -16,66 +24,213 @@ void ChessBoard::initChessBoard()
      for (int j = 0; j < NUM_COLS; j++)
        board[i][j] = NULL;
 
-			 //Set black pieces
-			 for (int j = 0; j < NUM_COLS; j++)
-			 				board[1][j] = new Pawn(Black, this);
+//	int** shadowboard_ = shadowboard[0][0]
 
-				board[0][0] = new Rook(Black);
-/*
-				board[0][1] = new Knight(Black);
-				board[0][2] = new Bishop(Black);
-				board[0][3] = new Queen(Black);
-				board[0][4] = new King(Black);
-				board[0][5] = new Bishop(Black);
-				board[0][6] = new Knight(Black);
-*/
-				board[0][7] = new Rook(Black);
+	 //Set white pieces
+	 for (int j = 0; j < NUM_COLS; j++)
+	 				board[1][j] = new Pawn(White, this);
 
-				//Set white pieces
-				for (int j = 0; j < NUM_COLS; j++)
- 			 				board[6][j] = new Pawn(White, this);
+		board[0][0] = new Rook(White, this);
 
- 				board[7][0] = new Rook(White);
-/*
- 				board[7][1] = new Knight(White);
- 				board[7][2] = new Bishop(White);
- 				board[7][3] = new Queen(White);
- 				board[7][4] = new King(White);
- 				board[7][5] = new Bishop(White);
- 				board[7][6] = new Knight(White);
-*/
- 				board[7][7] = new Rook(White);
+		board[0][1] = new Knight(White, this);
+		board[0][2] = new Bishop(White, this);
+		board[0][3] = new Queen(White, this);
+		board[0][4] = new King(White, this);
+		board[0][5] = new Bishop(White, this);
+		board[0][6] = new Knight(White, this);
 
-				printBoard();
+		board[0][7] = new Rook(White, this);
+
+		//Set Black pieces
+		for (int j = 0; j < NUM_COLS; j++)
+		 				board[6][j] = new Pawn(Black, this);
+
+			board[7][0] = new Rook(Black, this);
+
+			board[7][1] = new Knight(Black, this);
+			board[7][2] = new Bishop(Black, this);
+			board[7][3] = new Queen(Black, this);
+			board[7][4] = new King(Black, this);
+			board[7][5] = new Bishop(Black, this);
+			board[7][6] = new Knight(Black, this);
+
+			board[7][7] = new Rook(Black, this);
+
+		printBoard();
 }
+/*
+void ChessBoard::configureShadowboard()
+{
+	for (int i = 0; i < NUM_ROWS; i++)
+		 for (int j = 0; j < NUM_COLS; j++)
+		 	shadowboard[i][j] = 0;
 
+	for (int i = 0; i < NUM_ROWS; i++)
+     for (int j = 0; j < NUM_COLS; j++)
+       if(board[i][j] != NULL)
+			 	shadowboard[i][j] = 1;
+
+}
+*/
 void ChessBoard::submitMove(string origin, string destination)
 {
 		//SAMPLE CALL: 	cb.submitMove("D7", "D6");
+		if(!input_check(origin, destination))
+		{
+			cout << "PARAMETERS INVALID" << endl;
+			return;
+		}
 
 		int originColumn = static_cast<int>(origin[0]) - 65;
 		int originRow = static_cast<int>(origin[1]) - 49;
-
 		int destinationColumn = static_cast<int>(destination[0]) - 65;
 		int destinationRow = static_cast<int>(destination[1]) - 49;
 
+		if(!(checkMove(originRow, originColumn, destinationRow, destinationColumn)))
+			return;
 
-		cout << "ORIGIN: " << originColumn << "  " << originRow << endl;
-		cout << "DESTINATION: " << destinationColumn << "  " << destinationRow << endl;
+		cout << board[originRow][originColumn]->getSide() << " " << board[originRow][originColumn]->getName()
+		<< " moves from " << origin << " to " << destination << endl;
 
-
-		if(board[originRow][originColumn]->isMoveValid(originColumn, originRow,
-																										destinationColumn,
-																										destinationRow))
+		if(board[destinationRow][destinationColumn] != NULL)
 		{
-			board[destinationRow][destinationColumn] = board[originRow][originColumn];
-			board[originRow][originColumn] = NULL;
-			printBoard();
-		} else
-		{
-			cout << "MOVE INVALID." << endl;
+			cout << board[originRow][originColumn]->getSide() << " takes " <<
+			board[destinationRow][destinationColumn]->getSide()
+			<< " " << board[destinationRow][destinationColumn]->getName() << endl;
 		}
 
+		move(originRow, originColumn, destinationRow, destinationColumn);
+		board[destinationRow][destinationColumn]->movedOn();
+		cout << "h1" << endl;
+		this->white_turn = !(this->white_turn);
+		cout << "h2" << endl;
+
+		printBoard();
+
+}
+
+bool ChessBoard::checkMove(int originRow, int originColumn, int destinationRow, int destinationColumn)
+{
+
+		if(!(rangeCheck(originRow) && rangeCheck(originColumn) && rangeCheck(destinationRow) &&
+				rangeCheck(destinationColumn)))
+				return false;
+
+		if(board[originRow][originColumn] == NULL)
+		{
+			cout << "Origin space empty." << endl;
+			return false;
+		}
+
+		cout << "1. " << endl;
+
+		if((this->white_turn != board[originRow][originColumn]->side))
+		{
+			cout << "Attempt to move the opposing player's piece." << endl;
+			return false;
+
+		}
+
+		cout << "2. " << endl;
+
+		if(board[destinationRow][destinationColumn] != NULL)
+		{
+			if(board[destinationRow][destinationColumn]->side == board[originRow][originColumn]->side)
+			{
+				cout << "Can't take own piece." << endl;
+				return false;
+			}
+		}
+
+		cout << "3. " << endl;
+
+		if(!(board[originRow][originColumn]->isMoveValid(originColumn, originRow,
+																										destinationColumn,
+																										destinationRow)))
+		{
+			return false;
+		}
+
+		cout << "4. " << endl;
+
+		if(check())
+		{
+			cout << "Move puts player into check" << endl;
+			return false;
+		}
+
+		cout << "5. " << endl;
+		cout << "6. " << endl;
+
+		return true;
+
+}
+
+void ChessBoard::move(int originRow, int originColumn, int destinationRow, int destinationColumn)
+{
+	board[destinationRow][destinationColumn] = board[originRow][originColumn];
+	board[originRow][originColumn] = NULL;
+}
+
+void ChessBoard::locateKing(int& column, int& row)
+{
+	for(int i = 0; i < NUM_ROWS; i++)
+		for(int j = 0; j < NUM_COLS; j++)
+			if(board[i][j] != NULL && board[i][j]->side == white_turn && board[i][j]->getName() == "king")
+			{
+				row = i;
+				column = j;
+			}
+}
+
+
+bool ChessBoard::canKingMove()
+{
+	int column;
+	int row;
+
+	locateKing(column, row);
+
+	for(int i = column - 1; i <= column + 1; i++)
+		for (int j = row - 1; j <= row + 1; j++)
+		{
+				if(i == column && j == row)
+				 	continue;
+				else
+					if(checkMove(row, column, j, i))
+						return true;
+		}
+	return false;
+}
+
+bool ChessBoard::check()
+{
+
+	int column;
+	int row;
+
+	locateKing(column, row);
+
+	for(int i = 0; i < NUM_ROWS; i++)
+		for(int j = 0; j < NUM_COLS; j++)
+			if(board[i][j] != NULL && board[i][j]->side != white_turn)
+				if(board[i][j]->isMoveValid(j, i, column, row))
+				{
+					return true;
+				}
+
+
+	return false;
+}
+
+
+
+bool ChessBoard::isPositionEmpty(int row, int column)
+{
+	if(board[row][column] == NULL)
+		return true;
+	else
+		return false;
 }
 
 void ChessBoard::printBoard() {

@@ -13,17 +13,44 @@ int main() {
 	ChessBoard cb;
 	cout << '\n';
 
-	cb.submitMove("H8", "E6");
+
+
+while(true)
+{
+//	if(cb.canKingMove())
+//		cout << "King can move." << endl;
+//	else
+//		cout << "King cannot move." << endl;
+
+	cout << "Please submit a move >" << endl;
+	string start;
+	string end;
+	cin >> start >> end;
+	cb.submitMove(start, end);
+	cout << endl;
+}
+
+/*
+cout << "Move 1: " << endl;
+	cb.submitMove("G2", "G3");//invalid
 	cout << '\n';
 
-	cb.submitMove("A8", "C4");
+cout << "Move 2: " << endl;
+	cb.submitMove("A7", "A6");//valid
 	cout << '\n';
 
-	cb.submitMove("A1", "C8");
+cout << "Move 3: " << endl;
+	cb.submitMove("F2", "F3");//valid
 	cout << '\n';
 
-	cb.submitMove("H1", "G4");
+cout << "Move 4: " << endl;
+	cb.submitMove("A8", "A7");//valid
 	cout << '\n';
+
+cout << "Move 5: " << endl;
+	cb.submitMove("H3", "E6");//valid
+	cout << '\n';
+*/
 /*
 	cout << "=========================\n";
 	cout << "Alekhine vs. Vasic (1931)\n";

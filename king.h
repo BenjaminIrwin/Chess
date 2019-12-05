@@ -9,16 +9,18 @@ public:
 	std::string name = "King";
 
 //Piece constructor
-	King(colour side) : Piece(side) {};
+	King(colour side, ChessBoard* board_) : Piece(side, board_)  {};
 
 	~King() {};
 
 //Symbol getter for print
 		char getSymbol();
 
+		std::string getName();
+
+
 		bool isMoveValid(int originColumn, int originRow, int destinationColumn,
 															int destinationRow);
 };
-
 
 #endif

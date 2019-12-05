@@ -8,12 +8,14 @@ class Rook : public Piece {
 public:
 
 //Rook constructor
-	Rook(colour side)	: Piece(side) {};
+	Rook(colour side, ChessBoard* board_) : Piece(side, board_)  {};
 
 //Rook destructor
 	~Rook() {};
 
 	char getSymbol();
+
+	std::string getName();
 
 	bool isMoveValid(int originColumn, int originRow, int destinationColumn,
 														int destinationRow);

@@ -14,6 +14,11 @@ char King::getSymbol(){
 		}
 }
 
+std::string King::getName()
+{
+	return "king";
+}
+
 bool King::isMoveValid(int originColumn, int originRow, int destinationColumn,
 													int destinationRow){
 
@@ -22,20 +27,7 @@ bool King::isMoveValid(int originColumn, int originRow, int destinationColumn,
 		//Otherwise just one.
 		//If destination is an enemy then can move diagonal.
 
-		//If moved backwards
-		if((destinationRow < originRow))
-			return false;
-
-		//If column shift is more than 1
-	  if((originColumn % destinationColumn) > 1)
-			return false;
-
-	  //If moves sideways
-		if((originColumn % destinationColumn) && !(originRow % destinationRow))
-			return false;
-
-	  //If moved more than one space forward on non-first move
-		if((destinationRow - originRow > 1) && !(hasMoved))
+		if(abs(originColumn - destinationColumn) > 1 || abs(originRow - destinationRow) > 1)
 			return false;
 
 		return true;

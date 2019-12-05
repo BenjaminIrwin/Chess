@@ -17,20 +17,30 @@ char Rook::getSymbol(){
 		}
 }
 
+std::string Rook::getName()
+{
+	return "rook";
+}
+
 
 bool Rook::isMoveValid(int originColumn, int originRow, int destinationColumn,
 													int destinationRow){
-
-		cout << "CHECKING MOVE VALIDITY..." << abs(destinationRow - originRow) << endl;
 
 		//Can ONLY move sideways OR backwards
 		//If its first move then can move two forward.
 		//Otherwise just one.
 
 		if((abs(originColumn - destinationColumn)) && (abs(originRow - destinationRow)))
+		{
+			cout << "ROOK MOVED NON-STRAIGHT." << endl;
 			return false;
+		}
 
-		cout << "MOVE VALID" << endl;
+		if(!(straightCheck(originRow, originColumn, destinationRow, destinationColumn)))
+		{
+			cout << "Something in the way!" << endl;
+			return false;
+		}
 
 		return true;
 

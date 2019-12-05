@@ -1,4 +1,5 @@
 #include "bishop.h"
+#include <iostream>
 
 using namespace std;
 
@@ -15,6 +16,11 @@ char Bishop::getSymbol(){
 
 }
 
+std::string Bishop::getName()
+{
+	return "bishop";
+}
+
 bool Bishop::isMoveValid(int originColumn, int originRow, int destinationColumn,
 													int destinationRow){
 
@@ -23,21 +29,17 @@ bool Bishop::isMoveValid(int originColumn, int originRow, int destinationColumn,
 		//Otherwise just one.
 		//If destination is an enemy then can move diagonal.
 
-		//If moved backwards
-		if((destinationRow < originRow))
-			return false;
+	if(abs(originRow - destinationRow) != abs(originColumn - destinationColumn))//If not diagonal
+	{
+				return false;
+	}
 
-		//If column shift is more than 1
-	  if((originColumn % destinationColumn) > 1)
-			return false;
+	if(!(diagonalCheck(originRow, originColumn, destinationRow, destinationColumn)))
+	{
+		std::cout << "Something in the way of Bishop!" << std::endl;
+		return false;
+	}
 
-	  //If moves sideways
-		if((originColumn % destinationColumn) && !(originRow % destinationRow))
-			return false;
-
-	  //If moved more than one space forward on non-first move
-		if((destinationRow - originRow > 1) && !(hasMoved))
-			return false;
 
 		return true;
 }

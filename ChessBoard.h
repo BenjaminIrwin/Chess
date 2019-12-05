@@ -1,26 +1,16 @@
 #ifndef CHESSBOARD_H
 #define CHESSBOARD_H
 
-//#include "helper.h"
-#include "pawn.h"
-#include "rook.h"
-/*
-#include "bishop.h"
-#include "king.h"
-#include "queen.h"
-#include "knight.h"
-#include <string>
-*/
+#include "helper.h"
+#include "piece.h"
 
-#include <iostream>
-
+class Piece;
 
 class ChessBoard {
 
-private:
-	Piece *board[NUM_ROWS][NUM_COLS];
-
 public:
+	Piece *board[NUM_ROWS][NUM_COLS];
+	bool white_turn = true;
 
 	ChessBoard();
 
@@ -35,10 +25,22 @@ public:
 
 	void printRow(int row);
 
-
 //Parse a move, and make it if legal
 	void submitMove(std::string origin, std::string destination);
 
+	void move(int originRow, int originColumn, int destinationRow, int destinationColumn);
+
+	void configureShadowboard();
+
+	bool isPositionEmpty(int row, int column);
+
+	bool check();
+
+	bool checkMove(int originRow, int originColumn, int destinationRow, int destinationColumn);
+
+	bool canKingMove();
+
+	void locateKing(int& column, int& row);
 
 /*
 //Tests whether a square contains no chess piece

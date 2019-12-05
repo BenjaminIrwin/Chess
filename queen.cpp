@@ -1,4 +1,5 @@
 #include "queen.h"
+#include <iostream>
 
 using namespace std;
 
@@ -14,29 +15,39 @@ char Queen::getSymbol(){
 		}
 }
 
+std::string Queen::getName()
+{
+	return "queen";
+}
+
 bool Queen::isMoveValid(int originColumn, int originRow, int destinationColumn,
 													int destinationRow){
 
-		//Can't move sideways or backwards
-		//If its first move then can move two forward.
-		//Otherwise just one.
-		//If destination is an enemy then can move diagonal.
+		if(abs(originRow - destinationRow) == abs(originColumn - destinationColumn))//If diagonal
+		{
+			if(!(diagonalCheck(originRow, originColumn, destinationRow, destinationColumn)))
+			{
+				std::cout << "Something in the way of Queen!" << std::endl;
+				return false;
+			}
 
-		//If moved backwards
-		if((destinationRow < originRow))
-			return false;
+			return true;
 
-		//If column shift is more than 1
-	  if((originColumn % destinationColumn) > 1)
-			return false;
+		}
 
-	  //If moves sideways
-		if((originColumn % destinationColumn) && !(originRow % destinationRow))
-			return false;
+		if(originColumn == destinationColumn || originRow == destinationRow)//If on the same row or same column
+		{
+			if(!(straightCheck(originRow, originColumn, destinationRow, destinationColumn)))
+			{
+				cout << "Something in the way of Queen!" << endl;
+				return false;
+			}
 
-	  //If moved more than one space forward on non-first move
-		if((destinationRow - originRow > 1) && !(hasMoved))
-			return false;
+			return true;
 
-		return true;
-	}
+		}
+
+
+		return false;
+
+}

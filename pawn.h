@@ -8,16 +8,17 @@ class ChessBoard;
 
 class Pawn : public Piece {
 public:
-	ChessBoard* board;
 
 //Pawn constructor
-	Pawn(colour side, ChessBoard* board) : Piece(side), board(board) {};
+	Pawn(colour side, ChessBoard* board_) : Piece(side, board_)  {};
 
 //Pawn destructor
 	~Pawn() {};
 
 //Symbol getter for print
 	char getSymbol();
+
+	std::string getName();
 
 	bool isMoveValid(int originColumn, int originRow, int destinationColumn,
 														int destinationRow);
