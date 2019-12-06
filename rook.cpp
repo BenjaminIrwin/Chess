@@ -32,13 +32,13 @@ bool Rook::isMoveValid(int originColumn, int originRow, int destinationColumn,
 
 		if((abs(originColumn - destinationColumn)) && (abs(originRow - destinationRow)))
 		{
-			cout << "ROOK MOVED NON-STRAIGHT." << endl;
+//			cout << "ROOK MOVED NON-STRAIGHT." << endl;
 			return false;
 		}
 
 		if(!(straightCheck(originRow, originColumn, destinationRow, destinationColumn)))
 		{
-			cout << "Something in the way!" << endl;
+//			cout << "Something in the way!" << endl;
 			return false;
 		}
 

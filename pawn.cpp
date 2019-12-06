@@ -33,11 +33,9 @@ bool Pawn::isMoveValid(int originColumn, int originRow, int destinationColumn,
 	if(((this->side == Black) && (destinationRow > originRow))
 				|| ((this->side == White) && (destinationRow < originRow)))
 	{
-		cout << "PAWN MOVES BACKWARDS" << endl;
+//		cout << "PAWN MOVES BACKWARDS" << endl;
 		return false;
 	}
-
-cout << "a" << endl;
 
 //If pawn captures diagonally
 	if(((abs(destinationRow - originRow) == 1) && (abs(destinationColumn - originColumn) == 1)) &&
@@ -48,9 +46,6 @@ cout << "a" << endl;
 				return true;
 	}
 
-cout << "B" << endl;
-
-
 //If pawn advances 1 square forwards
 	if(abs(destinationRow - originRow) == 1 && abs(destinationColumn - originColumn) == 0
 		&& board_->isPositionEmpty(destinationRow, destinationColumn))
@@ -58,16 +53,10 @@ cout << "B" << endl;
 		return true;
 	}
 
-cout << "C" << endl;
-
-
 //If pawn advances 2 squares forwards if it has moved yet and the path is not blocked
 	if((abs(destinationRow - originRow) == 2) && abs(destinationColumn - originColumn) == 0 &&
 	!(this->hasMoved) && (straightCheck(originRow, originColumn, destinationRow, destinationColumn)))
 		return true;
-
-cout << "D" << endl;
-
 
 	return false;
 }

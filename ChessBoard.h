@@ -46,6 +46,8 @@ public:
 
 	void locateKing(int& column, int& row);
 
+	bool mateDetect();//Precondition:player is in check
+
 /*
 //Tests whether a square contains no chess piece
 	isEmpty();

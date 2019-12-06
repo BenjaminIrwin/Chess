@@ -27,7 +27,7 @@ bool Queen::isMoveValid(int originColumn, int originRow, int destinationColumn,
 		{
 			if(!(diagonalCheck(originRow, originColumn, destinationRow, destinationColumn)))
 			{
-				std::cout << "Something in the way of Queen!" << std::endl;
+//				std::cout << "Something in the way of Queen!" << std::endl;
 				return false;
 			}
 
@@ -39,7 +39,7 @@ bool Queen::isMoveValid(int originColumn, int originRow, int destinationColumn,
 		{
 			if(!(straightCheck(originRow, originColumn, destinationRow, destinationColumn)))
 			{
-				cout << "Something in the way of Queen!" << endl;
+//				cout << "Something in the way of Queen!" << endl;
 				return false;
 			}
 

@@ -11,7 +11,7 @@ bool input_check (string origin, string destination)
 
   if(origin == destination)
   {
-    cerr << "Piece moved to same pos." << endl;
+//    cerr << "Piece moved to same pos." << endl;
     return false;
 
   }

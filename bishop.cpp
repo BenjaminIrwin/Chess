@@ -36,7 +36,7 @@ bool Bishop::isMoveValid(int originColumn, int originRow, int destinationColumn,
 
 	if(!(diagonalCheck(originRow, originColumn, destinationRow, destinationColumn)))
 	{
-		std::cout << "Something in the way of Bishop!" << std::endl;
+//		std::cout << "Something in the way of Bishop!" << std::endl;
 		return false;
 	}
 
