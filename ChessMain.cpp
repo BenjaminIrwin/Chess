@@ -54,7 +54,7 @@ cout << "Move 5: " << endl;
 	cout << "=========================\n";
 	cout << "Alekhine vs. Vasic (1931)\n";
 	cout << "=========================\n\n";
-
+/*
 //	cb.resetBoard();
 	cout << '\n';
 	
@@ -96,10 +96,10 @@ cout << "Move 5: " << endl;
 
 	cb.submitMove("C8", "E6");
 
+*/
 
 
 
-/*
 	cb.submitMove("E2", "E4");
 	cb.submitMove("E7", "E6");
 	cout << '\n';
@@ -142,8 +142,6 @@ cout << "Move 5: " << endl;
 
 	cb.submitMove("D3", "G6");
 	cout << '\n';
-
-*/
 
 	return 0;
 }
