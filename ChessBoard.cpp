@@ -153,17 +153,34 @@ bool ChessBoard::checkMove(int originRow, int originColumn, int destinationRow, 
 
 		cout << "4. " << endl;
 
-		if(check())
-		{
-			cout << "Move puts player into check" << endl;
+		if((!checkDetect(originRow, originColumn, destinationRow, destinationColumn)))
 			return false;
-		}
 
 		cout << "5. " << endl;
 		cout << "6. " << endl;
 
 		return true;
 
+}
+
+bool ChessBoard::checkDetect(int originRow, int originColumn, int destinationRow, int destinationColumn)
+{
+	Piece* temp = board[destinationRow][destinationColumn];
+
+	move(originRow, originColumn, destinationRow, destinationColumn);
+
+	if(check())
+	{
+		cout << "Move puts player into check" << endl;
+		move(destinationRow, destinationColumn, originRow, originColumn);
+		board[destinationRow][destinationColumn] = temp;
+		return false;
+	}
+
+	move(destinationRow, destinationColumn, originRow, originColumn);
+	board[destinationRow][destinationColumn] = temp;
+
+	return true;
 }
 
 void ChessBoard::move(int originRow, int originColumn, int destinationRow, int destinationColumn)
@@ -223,7 +240,14 @@ bool ChessBoard::check()
 	return false;
 }
 
+/*
+std::string ChessBoard::getSide(int row, int column)
+{
+	string side = board[row][column]->getSide();
 
+	return side;
+}
+*/
 
 bool ChessBoard::isPositionEmpty(int row, int column)
 {

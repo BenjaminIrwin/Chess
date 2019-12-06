@@ -34,9 +34,13 @@ public:
 
 	bool isPositionEmpty(int row, int column);
 
+//	std::string getSide(int row, int column);
+
 	bool check();
 
 	bool checkMove(int originRow, int originColumn, int destinationRow, int destinationColumn);
+
+	bool checkDetect(int originRow, int originColumn, int destinationRow, int destinationColumn);
 
 	bool canKingMove();
 

@@ -23,8 +23,6 @@ std::string Pawn::getName()
 bool Pawn::isMoveValid(int originColumn, int originRow, int destinationColumn,
 													int destinationRow){
 
-	cout << "CHECKING MOVE VALIDITY..." << abs(destinationRow - originRow) << endl;
-
 //ERROR HERE!!!!!! DO FIRST THING
 
 	//IF pawn moves forwards once
@@ -39,45 +37,37 @@ bool Pawn::isMoveValid(int originColumn, int originRow, int destinationColumn,
 		return false;
 	}
 
-	//If column shift is more than 1
-  if(abs(destinationColumn - originColumn) > 1)
+cout << "a" << endl;
+
+//If pawn captures diagonally
+	if(((abs(destinationRow - originRow) == 1) && (abs(destinationColumn - originColumn) == 1)) &&
+	!(board_->isPositionEmpty(destinationRow, destinationColumn)))
+	//&& (this->getSide() != board_->getSide(destinationRow, destinationColumn)))
 	{
-		cout << "PAWN MOVES TOO FAR ALONG" << endl;
-		return false;
+			if((abs(originRow - destinationRow) == 1) || (abs(originColumn - destinationColumn) == 1))
+				return true;
 	}
 
-  //If moves sideways
-	if((abs(originColumn - destinationColumn)) && !(abs(originRow - destinationRow)))
+cout << "B" << endl;
+
+
+//If pawn advances 1 square forwards
+	if(abs(destinationRow - originRow) == 1 && abs(destinationColumn - originColumn) == 0
+		&& board_->isPositionEmpty(destinationRow, destinationColumn))
 	{
-		cout << "PAWN MOVES SIDEWAYS" << endl;
-		return false;
+		return true;
 	}
 
-	if(!(board_->isPositionEmpty(destinationColumn, destinationRow)))
-	{
-			if((abs(originRow - destinationRow) != 1) && (abs(originColumn - destinationColumn) != 1))
-			 	return false;
-	}
-			return false;
+cout << "C" << endl;
 
-	//If moved more than 2 rows forward
-	if(abs(destinationRow - originRow) > 2)
-		return false;
 
-  //If moved more than one space forward on non-first move
-	if((abs(originRow - destinationRow) == 2) && hasMoved)
-	{
-		cout << "PAWN MOVED MORE THAN ONE SPACE FORWARD ON FIRST MOVE" << endl;
-		hasMoved = false;
-		return false;
-	}
+//If pawn advances 2 squares forwards if it has moved yet and the path is not blocked
+	if((abs(destinationRow - originRow) == 2) && abs(destinationColumn - originColumn) == 0 &&
+	!(this->hasMoved) && (straightCheck(originRow, originColumn, destinationRow, destinationColumn)))
+		return true;
 
-	//Can only move diagonally if there is an enemy piece in the destination
+cout << "D" << endl;
 
-	//if(straightCheck(originRow, originColumn, destinationRow, destinationColumn))
-	//	return true;
 
-	cout << "PAWN MOVE VALID" << endl;
-
-	return true;
+	return false;
 }
