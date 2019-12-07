@@ -14,6 +14,7 @@ ChessBoard::ChessBoard()
 {
 	initChessBoard();
 	//		configureShadowboard();
+	castlingInfo = new castleData;
 }
 
 void ChessBoard::initChessBoard()
@@ -86,29 +87,65 @@ void ChessBoard::submitMove(string origin, string destination)
 	int destinationColumn = static_cast<int>(destination[0]) - 65;
 	int destinationRow = static_cast<int>(destination[1]) - 49;
 
+	//CASTLING STRUCT
 	if(!(checkMove(originRow, originColumn, destinationRow, destinationColumn)))
 		return;
-
-	cout << board[originRow][originColumn]->getSide() << " " << board[originRow][originColumn]->getName()
-		<< " moves from " << origin << " to " << destination << endl;
-
-	if(board[destinationRow][destinationColumn] != NULL)
+/*
+	if(board[originRow][originColumn]->getName() == "king" && board[originRow][originColumn]->getSpecialStatus() == true
+		&& !(inCheck))//I'm never entering this loop! 
+*/
+	if(castlingInfo->castle)
 	{
-		cout << board[originRow][originColumn]->getSide() << " takes " <<
-			board[destinationRow][destinationColumn]->getSide()
-			<< " " << board[destinationRow][destinationColumn]->getName() << endl;
+
+		cout << board[originRow][originColumn]->getSide() << " " << board[originRow][originColumn]->getName()
+		<< " executes castle." << endl;
+
+		/*
+		if(attemptCastle(originRow, originColumn, destinationRow, destinationColumn))//This function call needs to be in checkMove I think
+		{
+						
+			cout << board[originRow][originColumn]->getSide() << " " << board[originRow][originColumn]->getName()
+			<< " executes castle." << endl;
+		}
+		else
+		{
+			cout << "Invalid castle!" << endl; 
+		}
+		*/
+
+		board[originRow][originColumn]->movedOn();
+		board[castlingInfo->rookOriginRow][castlingInfo->rookOriginColumn]->movedOn();
+
+		move(originRow, originColumn, originRow, destinationColumn);
+		move(castlingInfo->rookOriginRow, castlingInfo->rookOriginColumn, castlingInfo->rookDestinationRow, castlingInfo->rookDestinationColumn);
+
+		castlingInfo->castle = false;
+		//board[originRow][destinationColumn] 
+
+	}
+	else
+	{
+		cout << board[originRow][originColumn]->getSide() << " " << board[originRow][originColumn]->getName()
+			<< " moves from " << origin << " to " << destination << endl;
+
+		if(board[destinationRow][destinationColumn] != NULL)
+		{
+			cout << board[originRow][originColumn]->getSide() << " takes " <<
+				board[destinationRow][destinationColumn]->getSide()
+				<< " " << board[destinationRow][destinationColumn]->getName() << endl;
+		}
+
+		move(originRow, originColumn, destinationRow, destinationColumn);
+		board[destinationRow][destinationColumn]->movedOn();
 	}
 
-	move(originRow, originColumn, destinationRow, destinationColumn);
-	board[destinationRow][destinationColumn]->movedOn();
-//	cout << "h1" << endl;
 	this->white_turn = !(this->white_turn);
-//	cout << "h2" << endl;
 
-	cout << "Checking for check..." << endl;
+	//cout << "Checking for check..." << endl;
 	if(check())
 	{
-		cout << "CHECK FOUND." << endl;
+		inCheck = true;
+		//cout << "CHECK FOUND." << endl;
 		if(white_turn)
 			cout <<  "White in check";		
 		else
@@ -123,7 +160,8 @@ void ChessBoard::submitMove(string origin, string destination)
 		cout << "." << endl; 		
 	} else
 	{
-		cout << "CHECK NOT FOUND. CHECKING FOR STALEMATE..." << endl;
+		inCheck = false;
+		//cout << "CHECK NOT FOUND. CHECKING FOR STALEMATE..." << endl;
 		if(mateDetect())
 		{
 			cout << "STALEMATE!" << endl;
@@ -137,8 +175,117 @@ void ChessBoard::submitMove(string origin, string destination)
 
 }
 
+bool ChessBoard::verifyCastle(int originRow, int originColumn, int destinationRow, int destinationColumn)
+{
+	//Find relevant rook
+	//	if origin < destination(kingside)
+	//		black rook = [NUM_ROWS][NUM_COLS]
+	//		white rook = [0][NUM_COLS]
+	//	
+	//	if origin > destination(queenside)
+	//		black rook = [NUM_ROWS][0]
+	//		white rook = [0][0]
+
+	if(inCheck)
+		return false;
+
+	bool kingside;
+
+//	cout << "Hello." << endl;
+
+	if(originColumn < destinationColumn)
+	{
+		kingside = true;
+		if(!white_turn)
+		{
+			castlingInfo->rookOriginRow = NUM_ROWS - 1;
+			castlingInfo->rookOriginColumn = NUM_COLS - 1;
+			castlingInfo->rookDestinationRow = NUM_ROWS - 1;
+			castlingInfo->rookDestinationColumn = NUM_COLS - 3;
+		}//Could put an else here
+
+		if(white_turn)
+		{
+			castlingInfo->rookOriginRow = 0;
+			castlingInfo->rookOriginColumn = NUM_COLS - 1;
+			castlingInfo->rookDestinationRow = 0;
+			castlingInfo->rookDestinationColumn = NUM_COLS - 3;
+		}
+	} else
+	{
+		kingside = false;
+		if(!white_turn)
+		{
+
+			if(board[7][1] != NULL)
+				return false;
+
+			castlingInfo->rookOriginRow = NUM_ROWS - 1;
+			castlingInfo->rookOriginColumn = 0;
+			castlingInfo->rookDestinationRow = NUM_ROWS - 1;
+			castlingInfo->rookDestinationColumn = 3;
+		}
+
+		if(white_turn)
+		{
+			if(board[0][1] != NULL)
+				return false;
+
+			castlingInfo->rookOriginRow = 0;
+			castlingInfo->rookOriginColumn = 0; 
+			castlingInfo->rookDestinationRow = 0;
+			castlingInfo->rookDestinationColumn = 3;
+		}
+	}
+
+	//Check if rook has moved(if yes then abort)
+	//	if rook->hasMoved()
+	//		return false;
+
+	if(board[castlingInfo->rookOriginRow][castlingInfo->rookOriginColumn]->hasMoved)
+		return false;
+	
+	//Do a check detect on the two sub-moves the king will make before swap
+	//	checkMove(move1)
+
+	if(kingside)
+	{
+		int path = destinationColumn - 1;
+
+//		cout << "Checking: " << originRow << "  " << originColumn << "  " << originRow << "  " << path << endl; 
+		
+		if(!checkDetect(originRow, originColumn, originRow, path))
+			return false;
+
+		if(!checkDetect(originRow, path, originRow, destinationColumn))
+			return false;
+
+	}
+
+	if(!kingside)
+	{
+		int path = destinationColumn + 1;
+		
+//		cout << "1Checking: " << originRow << "  " << originColumn << "  " << originRow << "  " << path << endl; 
+
+		if(!checkDetect(originRow, originColumn, originRow, path))
+			return false;
+
+		if(!checkDetect(originRow, originColumn, originRow, destinationColumn))
+			return false;
+
+	}
+
+	return true;
+
+}
+
 bool ChessBoard::checkMove(int originRow, int originColumn, int destinationRow, int destinationColumn)
 {
+/*
+	cout << "CHECKING MOVE: " << originRow << "  " << originColumn << "  " << destinationRow << "  " << destinationColumn << endl;
+	cout << "CASTLE STATUS: " << castlingInfo->castle << endl;
+*/
 
 	if(!(rangeCheck(originRow) && rangeCheck(originColumn) && rangeCheck(destinationRow) &&
 				rangeCheck(destinationColumn)))
@@ -180,8 +327,17 @@ bool ChessBoard::checkMove(int originRow, int originColumn, int destinationRow, 
 	}
 
 //	cout << "4. " << endl;
-
-	if((!checkDetect(originRow, originColumn, destinationRow, destinationColumn)))
+	if(board[originRow][originColumn]->getName() == "king" && castlingInfo->castle)//board[originRow][originColumn]->getSpecialStatus() == true)//Add check provision
+	{
+		if(verifyCastle(originRow, originColumn, destinationRow, destinationColumn))
+		{
+			return true;
+		} else
+		{
+			castlingInfo->castle = false;
+			return false;
+		}	
+	} else if((!checkDetect(originRow, originColumn, destinationRow, destinationColumn)))
 		return false;
 
 //	cout << "5. " << endl;
@@ -205,7 +361,11 @@ bool ChessBoard::mateDetect()//Precondition:player is in check
 							for(int l = 0; l < NUM_COLS; l++)
 							{
 								if(checkMove(i, j, k, l))
+								{
+//									cout << "Move found: "<< i << " " << j << " " << k << " " << l << endl; 
 									return false;
+									
+								}
 							}
 						}
 					}
@@ -295,7 +455,7 @@ bool ChessBoard::check()
 					return true;
 				}
 
-
+//	cout << "NOT CHECK!" << endl;
 	return false;
 }
 
@@ -315,6 +475,11 @@ bool ChessBoard::isPositionEmpty(int row, int column)
 	else
 		return false;
 }
+
+void ChessBoard::signalCastle()
+{
+	castlingInfo->castle = true;
+}	
 
 void ChessBoard::printBoard() {
 	cout << "    ";

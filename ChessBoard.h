@@ -11,6 +11,16 @@ class ChessBoard {
 public:
 	Piece *board[NUM_ROWS][NUM_COLS];
 	bool white_turn = true;
+	bool inCheck = false;
+	struct castleData
+	{
+		bool castle = false;
+		int rookOriginRow = 0;
+		int rookOriginColumn = 0;
+		int rookDestinationRow = 0;
+		int rookDestinationColumn = 0;
+		
+	} *castlingInfo;
 
 	ChessBoard();
 
@@ -47,6 +57,10 @@ public:
 	void locateKing(int& column, int& row);
 
 	bool mateDetect();//Precondition:player is in check
+
+	bool verifyCastle(int originRow, int originColumn, int destinationRow, int destinationColumn);
+
+	void signalCastle();
 
 /*
 //Tests whether a square contains no chess piece

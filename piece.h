@@ -34,6 +34,8 @@ bool diagonalCheck(int originRow, int originColumn, int destinationRow, int dest
 
 bool straightCheck(int originRow, int originColumn, int destinationRow, int destinationColumn);
 
+virtual bool getSpecialStatus() {return NULL;}
+
 };
 
 
