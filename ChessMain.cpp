@@ -12,8 +12,8 @@ int main() {
 
 	ChessBoard cb;
 	cout << '\n';
-/*
 
+/*
 while(true)
 {
 //	if(cb.canKingMove())
@@ -28,7 +28,8 @@ while(true)
 	cb.submitMove(start, end);
 	cout << endl;
 }
-
+*/
+/*
 
 cout << "Move 1: " << endl;
 	cb.submitMove("G2", "G3");//invalid
@@ -96,6 +97,8 @@ cout << "Move 5: " << endl;
 
 */
 
+	cb.resetBoard();
+	cout << '\n';
 
 	cb.submitMove("E2", "E4");
 	cb.submitMove("E7", "E6");

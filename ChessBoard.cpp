@@ -17,6 +17,11 @@ ChessBoard::ChessBoard()
 	castlingInfo = new castleData;
 }
 
+ChessBoard::~ChessBoard()
+{
+	delete castlingInfo;
+}
+
 void ChessBoard::initChessBoard()
 {
 	cout << "New game beginning..." << endl << endl;
@@ -362,7 +367,7 @@ bool ChessBoard::mateDetect()//Precondition:player is in check
 							{
 								if(checkMove(i, j, k, l))
 								{
-//									cout << "Move found: "<< i << " " << j << " " << k << " " << l << endl; 
+									cout << "Move found: "<< i << " " << j << " " << k << " " << l << endl; 
 									return false;
 									
 								}
@@ -452,6 +457,8 @@ bool ChessBoard::check()
 			if(board[i][j] != NULL && board[i][j]->side != white_turn)
 				if(board[i][j]->isMoveValid(j, i, column, row))
 				{
+//					cout << "MOVE FOUND: " << j << i 
+//					<< column << row << endl;
 					return true;
 				}
 

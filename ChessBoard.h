@@ -24,7 +24,7 @@ public:
 
 	ChessBoard();
 
-	~ChessBoard() {};
+	~ChessBoard();
 
 //sets up board and pieces in position for start.
 	void initChessBoard();

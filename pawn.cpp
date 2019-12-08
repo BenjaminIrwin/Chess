@@ -55,7 +55,8 @@ bool Pawn::isMoveValid(int originColumn, int originRow, int destinationColumn,
 
 //If pawn advances 2 squares forwards if it has moved yet and the path is not blocked
 	if((abs(destinationRow - originRow) == 2) && abs(destinationColumn - originColumn) == 0 &&
-	!(this->hasMoved) && (straightCheck(originRow, originColumn, destinationRow, destinationColumn)))
+	!(this->hasMoved) && (board_->isPositionEmpty(destinationRow, destinationColumn)) 
+	&& straightCheck(originRow, originColumn, destinationRow, destinationColumn))
 		return true;
 
 	return false;
