@@ -12,29 +12,28 @@ public:
 	colour side;
 	bool hasMoved;
 	ChessBoard* board_;
-//	int* shadowboard[NUM_ROWS][NUM_COLS];
 
-//Piece constructor
+	//Piece constructor
 	Piece(colour side, ChessBoard* board_) : side(side), hasMoved(false), board_(board_) {};
 
-//Piece destructor
-//	virtual ~Piece{};
+	//Piece destructor
+	virtual ~Piece(){};
 
-//PURE virtual
+	void movedOn();
+
+	std::string getSide();
+
+	bool diagonalCheck(int originRow, int originColumn, int destinationRow, 
+				int destinationColumn);
+
+	bool straightCheck(int originRow, int originColumn, int destinationRow, 
+				int destinationColumn);
+
+	//PURE virtual
 	virtual char getSymbol() = 0;
-	virtual bool isMoveValid(int originColumn, int originRow, int destinationColumn,
-														int destinationRow) = 0;
+	virtual bool isMoveValid(int originColumn, int originRow, int destinationColumn, 
+					int destinationRow) = 0;
 	virtual std::string getName() = 0;
-
-void movedOn();
-
-std::string getSide();
-
-bool diagonalCheck(int originRow, int originColumn, int destinationRow, int destinationColumn);
-
-bool straightCheck(int originRow, int originColumn, int destinationRow, int destinationColumn);
-
-virtual bool getSpecialStatus() {return NULL;}
 
 };
 

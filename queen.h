@@ -7,19 +7,21 @@
 class Queen : public Piece {
 public:
 
-//Queen constructor
+	//Queen constructor
 	Queen(colour side, ChessBoard* board_) : Piece(side, board_)  {};
-//Queen destructor
+
+	//Queen destructor
 	~Queen() {};
 
-//Symbol getter for print
+	//Symbol getter for print
 	char getSymbol();
 
+	//Return class name
 	std::string getName();
 
-
+	//Check move validity
 	bool isMoveValid(int originColumn, int originRow, int destinationColumn,
-														int destinationRow);
+				int destinationRow);
 };
 
 

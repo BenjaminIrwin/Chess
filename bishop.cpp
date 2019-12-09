@@ -22,24 +22,21 @@ std::string Bishop::getName()
 }
 
 bool Bishop::isMoveValid(int originColumn, int originRow, int destinationColumn,
-													int destinationRow){
-
-		//Can't move sideways or backwards
-		//If its first move then can move two forward.
-		//Otherwise just one.
-		//If destination is an enemy then can move diagonal.
-
-	if(abs(originRow - destinationRow) != abs(originColumn - destinationColumn))//If not diagonal
+				int destinationRow)
+{
+	//If not diagonal	
+	if(abs(originRow - destinationRow) != abs(originColumn 
+							- destinationColumn))
 	{
-				return false;
-	}
-
-	if(!(diagonalCheck(originRow, originColumn, destinationRow, destinationColumn)))
-	{
-//		std::cout << "Something in the way of Bishop!" << std::endl;
 		return false;
 	}
 
+	//If obstacle encountered
+	if(!(diagonalCheck(originRow, originColumn, destinationRow, 
+				destinationColumn)))
+	{
+		return false;
+	}
 
 		return true;
 }

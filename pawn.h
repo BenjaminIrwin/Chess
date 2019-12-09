@@ -16,12 +16,12 @@ public:
 	~Pawn() {};
 
 //Symbol getter for print
+
 	char getSymbol();
 
 	std::string getName();
 
-	bool isMoveValid(int originColumn, int originRow, int destinationColumn,
-														int destinationRow);
+	bool isMoveValid(int originColumn, int originRow, int destinationColumn, int destinationRow);
 };
 
 #endif

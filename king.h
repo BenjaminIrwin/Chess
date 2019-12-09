@@ -9,19 +9,19 @@ public:
 	std::string name = "King";
 	bool castle = false;
 
-//Piece constructor
+	//Piece constructor
 	King(colour side, ChessBoard* board_) : Piece(side, board_)  {};
 
 	~King() {};
 
-//Symbol getter for print
-		char getSymbol();
+	//Symbol getter for print
+	char getSymbol();
 
-		std::string getName();
+	std::string getName();
 
 
-		bool isMoveValid(int originColumn, int originRow, int destinationColumn,
-															int destinationRow);
+	bool isMoveValid(int originColumn, int originRow, int destinationColumn,
+				int destinationRow);
 
 	bool getSpecialStatus();
 

@@ -20,34 +20,37 @@ std::string Queen::getName()
 	return "queen";
 }
 
-bool Queen::isMoveValid(int originColumn, int originRow, int destinationColumn,
-													int destinationRow){
-
-		if(abs(originRow - destinationRow) == abs(originColumn - destinationColumn))//If diagonal
+bool Queen::isMoveValid(int originColumn, int originRow, int destinationColumn,	
+			int destinationRow)
+{
+	//Diagonal movement
+	if(abs(originRow - destinationRow) == abs(originColumn 
+						- destinationColumn))
+	{
+		if(!(diagonalCheck(originRow, originColumn, destinationRow, 
+					destinationColumn)))
 		{
-			if(!(diagonalCheck(originRow, originColumn, destinationRow, destinationColumn)))
-			{
-//				std::cout << "Something in the way of Queen!" << std::endl;
-				return false;
-			}
-
-			return true;
-
+			return false;
 		}
 
-		if(originColumn == destinationColumn || originRow == destinationRow)//If on the same row or same column
+		return true;
+
+	}
+	
+	//Straight movement
+	if(originColumn == destinationColumn || originRow == destinationRow)
+	{
+		if(!(straightCheck(originRow, originColumn, destinationRow, 
+				destinationColumn)))
 		{
-			if(!(straightCheck(originRow, originColumn, destinationRow, destinationColumn)))
-			{
-//				cout << "Something in the way of Queen!" << endl;
-				return false;
-			}
-
-			return true;
-
+			return false;
 		}
 
+		return true;
 
-		return false;
+	}
+
+
+	return false;
 
 }

@@ -18,7 +18,7 @@ public:
 	std::string getName();
 
 	bool isMoveValid(int originColumn, int originRow, int destinationColumn,
-														int destinationRow);
+				int destinationRow);
 };
 
 #endif
