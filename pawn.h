@@ -8,7 +8,6 @@ class ChessBoard;
 
 class Pawn : public Piece {
 public:
-
 //Pawn constructor
 	Pawn(colour side, ChessBoard* board_) : Piece(side, board_)  {};
 
@@ -21,7 +20,8 @@ public:
 
 	std::string getName();
 
-	bool isMoveValid(int originColumn, int originRow, int destinationColumn, int destinationRow);
+	bool isMoveValid(int originColumn, int originRow, int destinationColumn, 
+							int destinationRow);
 };
 
 #endif

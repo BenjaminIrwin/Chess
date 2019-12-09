@@ -38,44 +38,30 @@ void checkError(int error)
 int input_check (string origin, string destination)
 {
 
-  if(origin == destination)
-  {
-    return 2;
+	if(origin == destination)
+	{
+		return 2;
 
-  }
+	}
 
-  if(origin.length() != 2)
-  {
-    return 1;
-  }
+	if(origin.length() != 2)
+	{
+		return 1;
+	}
 
-  if(destination.length() != 2)
-  {
-    return 1;
-  }
+	if(destination.length() != 2)
+	{
+		return 1;
+	}
 
-//Moving the following checks into moveCheck
-/*
-  if(static_cast<char>(origin[0]) > 'H' || static_cast<char>(origin[0]) < 'A')
-    return false;
-
-  if(atoi(&origin[1]) > 8 || atoi(&origin[1]) < 1)
-    return false;
-
-  if(static_cast<char>(destination[0]) > 'H' || static_cast<char>(destination[0]) < 'A')
-    return false;
-
-  if(atoi(&destination[1]) > 8 || atoi(&destination[1]) < 1)
-    return false;
-*/
-  return 0;
+	return 0;
 }
 
 bool rangeCheck (int number)
 {
-  if(number >= 0 && number <= 7)
-    return true;
-  else
-    return false;
+	if(number >= 0 && number <= 7)
+		return true;
+	else
+		return false;
 
 }

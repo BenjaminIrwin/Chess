@@ -13,6 +13,4 @@ bool rangeCheck(int number);
 
 void checkError(int number);
 
-//bool diagonalCheck (info)
-
 #endif

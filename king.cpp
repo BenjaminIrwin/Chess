@@ -21,11 +21,6 @@ std::string King::getName()
 	return "king";
 }
 
-bool King::getSpecialStatus()
-{
-	return castle;
-}
-
 bool King::isMoveValid(int originColumn, int originRow, int destinationColumn, 
 			int destinationRow)
 {
@@ -45,8 +40,8 @@ bool King::isMoveValid(int originColumn, int originRow, int destinationColumn,
 	}
 		
 
-	if(abs(originColumn - destinationColumn) > 1 
-					|| abs(originRow - destinationRow) > 1)
+	if(abs(originColumn - destinationColumn) > 1 || 
+		abs(originRow - destinationRow) > 1)
 		return false;
 
 	return true;

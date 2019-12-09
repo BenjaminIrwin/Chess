@@ -87,7 +87,8 @@ void ChessBoard::submitMove(string origin, string destination)
 	int destinationColumn = static_cast<int>(destination[0]) - 65;
 	int destinationRow = static_cast<int>(destination[1]) - 49;
 
-	error = verifyMove(originRow, originColumn, destinationRow, destinationColumn);
+	error = verifyMove(originRow, originColumn, destinationRow, 
+				destinationColumn);
 	if(error != 0)
 	{
 		checkError(error);
@@ -144,7 +145,7 @@ void ChessBoard::submitMove(string origin, string destination)
 
 		if(mateDetect())
 		{
-			cout << "mate! Game over" << endl;
+			cout << "mate! Game over";
 		}
 
 		cout << "." << endl; 		
@@ -323,9 +324,11 @@ bool ChessBoard::mateDetect()
 							for(int l = 0; l < 	
 								NUM_COLS; l++)
 							{
-								if(verifyMove(i, j, k, l) == 0)
+								if(verifyMove
+								(i, j, k, l) == 0)
 								{
-									return false;
+									return 
+									false;
 									
 								}
 							}
@@ -388,7 +391,8 @@ bool ChessBoard::check()
 
 	for(int i = 0; i < NUM_ROWS; i++)
 		for(int j = 0; j < NUM_COLS; j++)
-			if(board[i][j] != NULL && board[i][j]->getSide() != white_turn)
+			if(board[i][j] != NULL && board[i][j]->getSide() 
+								!= white_turn)
 				if(board[i][j]->isMoveValid(j, i, column, row))
 				{
 					return true;

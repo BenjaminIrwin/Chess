@@ -35,11 +35,12 @@ public:
 
 	colour getSide() const {return side;} 
 
+	bool getMoved() const {return hasMoved;} 
+
 	std::string printSide();
 
 	void setMoved();
 
-	bool getMoved() const {return hasMoved;} 
 
 };
 

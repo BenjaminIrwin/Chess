@@ -8,7 +8,7 @@ class Piece;
 
 class ChessBoard {
 
-public:
+private:
 	Piece *board[NUM_ROWS][NUM_COLS];
 	bool white_turn = true;
 	bool inCheck = false;
@@ -22,24 +22,14 @@ public:
 		
 	} *castlingInfo;
 
-	ChessBoard();
-
-	~ChessBoard();
-
-	void resetBoard();
-
 	void printBoard();
 
 	void printFrame(int row);
 
 	void printRow(int row);
 
-	void submitMove(std::string origin, std::string destination);
-
 	void move(int originRow, int originColumn, int destinationRow, 
 			int destinationColumn);
-
-	bool isPositionEmpty(int row, int column);
 
 	bool check();
 
@@ -55,9 +45,18 @@ public:
 
 	bool verifyCastle(int originRow, int originColumn, int destinationRow, 
 				int destinationColumn);
+public:
+	ChessBoard();
+
+	~ChessBoard();
+
+	void resetBoard();
+
+	void submitMove(std::string origin, std::string destination);
+
+	bool isPositionEmpty(int row, int column);
 
 	void signalCastle();
-
 };
 
 #endif

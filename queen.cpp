@@ -41,7 +41,7 @@ bool Queen::isMoveValid(int originColumn, int originRow, int destinationColumn,
 	if(originColumn == destinationColumn || originRow == destinationRow)
 	{
 		if(!(straightCheck(originRow, originColumn, destinationRow, 
-				destinationColumn)))
+					destinationColumn)))
 		{
 			return false;
 		}

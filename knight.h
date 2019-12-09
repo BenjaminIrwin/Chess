@@ -6,7 +6,6 @@
 
 class Knight : public Piece {
 public:
-
 	//Knight constructor
 	Knight(colour side, ChessBoard* board_) : Piece(side, board_)  {};
 

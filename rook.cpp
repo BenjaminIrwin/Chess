@@ -26,13 +26,15 @@ bool Rook::isMoveValid(int originColumn, int originRow, int destinationColumn,
 {
 
 	//If non-straight move
-	if((abs(originColumn - destinationColumn)) && (abs(originRow - destinationRow)))
+	if((abs(originColumn - destinationColumn)) && 
+					(abs(originRow - destinationRow)))
 	{
 		return false;
 	}
 
 	//If obstacle encountered
-	if(!(straightCheck(originRow, originColumn, destinationRow, destinationColumn)))
+	if(!(straightCheck(originRow, originColumn, destinationRow, 
+							destinationColumn)))
 	{
 		return false;
 	}
