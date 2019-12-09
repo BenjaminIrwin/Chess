@@ -21,6 +21,13 @@ ChessBoard::ChessBoard()
 ChessBoard::~ChessBoard()
 {
 	delete castlingInfo;
+	
+	for (int i = 0; i < NUM_ROWS; i++)
+		for (int j = 0; j < NUM_COLS; j++)
+		{
+			delete board[i][j];
+			board[i][j] = NULL;
+		}
 }
 
 void ChessBoard::resetBoard()
