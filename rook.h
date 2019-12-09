@@ -6,11 +6,8 @@
 
 class Rook : public Piece {
 public:
-
-//Rook constructor
 	Rook(colour side, ChessBoard* board_) : Piece(side, board_)  {};
 
-//Rook destructor
 	~Rook() {};
 
 	char getSymbol();

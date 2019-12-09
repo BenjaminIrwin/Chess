@@ -8,13 +8,9 @@ class ChessBoard;
 
 class Pawn : public Piece {
 public:
-//Pawn constructor
 	Pawn(colour side, ChessBoard* board_) : Piece(side, board_)  {};
 
-//Pawn destructor
 	~Pawn() {};
-
-//Symbol getter for print
 
 	char getSymbol();
 

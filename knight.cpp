@@ -14,6 +14,11 @@ char Knight::getSymbol(){
 	}
 }
 
+std::string Knight::getName()
+{
+	return "knight";
+}
+
 bool Knight::isMoveValid(int originColumn, int originRow, int destinationColumn,
 				int destinationRow)
 {
@@ -30,8 +35,3 @@ bool Knight::isMoveValid(int originColumn, int originRow, int destinationColumn,
 	return true;
 }
 
-
-std::string Knight::getName()
-{
-	return "knight";
-}

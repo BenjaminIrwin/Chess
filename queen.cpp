@@ -23,7 +23,7 @@ std::string Queen::getName()
 bool Queen::isMoveValid(int originColumn, int originRow, int destinationColumn,	
 			int destinationRow)
 {
-	//Diagonal movement
+	//If queen makes diagonal movement
 	if(abs(originRow - destinationRow) == abs(originColumn 
 						- destinationColumn))
 	{
@@ -37,7 +37,7 @@ bool Queen::isMoveValid(int originColumn, int originRow, int destinationColumn,
 
 	}
 	
-	//Straight movement
+	//If queen makes straight moovement
 	if(originColumn == destinationColumn || originRow == destinationRow)
 	{
 		if(!(straightCheck(originRow, originColumn, destinationRow, 

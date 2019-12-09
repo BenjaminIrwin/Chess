@@ -24,6 +24,7 @@ std::string King::getName()
 bool King::isMoveValid(int originColumn, int originRow, int destinationColumn, 
 			int destinationRow)
 {
+	//If king attempts castling
 	if(hasMoved == false)
 	{
 		if((abs(originRow - destinationRow) == 0) && 
@@ -39,7 +40,7 @@ bool King::isMoveValid(int originColumn, int originRow, int destinationColumn,
 		}
 	}
 		
-
+	//If king moves more than one in any direction
 	if(abs(originColumn - destinationColumn) > 1 || 
 		abs(originRow - destinationRow) > 1)
 		return false;

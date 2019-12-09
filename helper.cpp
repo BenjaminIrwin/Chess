@@ -59,7 +59,7 @@ int input_check (string origin, string destination)
 
 bool rangeCheck (int number)
 {
-	if(number >= 0 && number <= 7)
+	if(number >= 0 && number < NUM_ROWS)
 		return true;
 	else
 		return false;

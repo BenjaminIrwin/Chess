@@ -24,14 +24,14 @@ std::string Bishop::getName()
 bool Bishop::isMoveValid(int originColumn, int originRow, int destinationColumn,
 				int destinationRow)
 {
-	//If not diagonal	
+	//If bishop moves non-diagonally 
 	if(abs(originRow - destinationRow) != abs(originColumn 
 							- destinationColumn))
 	{
 		return false;
 	}
 
-	//If obstacle encountered
+	//If bishop encounters obstacle
 	if(!(diagonalCheck(originRow, originColumn, destinationRow, 
 				destinationColumn)))
 	{

@@ -32,7 +32,7 @@ ChessBoard::~ChessBoard()
 
 void ChessBoard::resetBoard()
 {
-	cout << "New game beginning..." << endl << endl;
+	cout << "New game beginning..." << endl;
 	white_turn = true;
 
 	for (int i = 0; i < NUM_ROWS; i++)
@@ -40,34 +40,31 @@ void ChessBoard::resetBoard()
 			board[i][j] = NULL;
 
 
-	//Set white pieces
+	//Set pawns 
+	for (int j = 0; j < NUM_COLS; j++)
+		board[6][j] = new Pawn(Black, this);
+
 	for (int j = 0; j < NUM_COLS; j++)
 		board[1][j] = new Pawn(White, this);
 
+	//Set white pieces
 	board[0][0] = new Rook(White, this);
-
 	board[0][1] = new Knight(White, this);
 	board[0][2] = new Bishop(White, this);
 	board[0][3] = new Queen(White, this);
 	board[0][4] = new King(White, this);
 	board[0][5] = new Bishop(White, this);
 	board[0][6] = new Knight(White, this);
-
 	board[0][7] = new Rook(White, this);
 
-	//Set Black pieces
-	for (int j = 0; j < NUM_COLS; j++)
-		board[6][j] = new Pawn(Black, this);
-
+	//Set black pieces
 	board[7][0] = new Rook(Black, this);
-
 	board[7][1] = new Knight(Black, this);
 	board[7][2] = new Bishop(Black, this);
 	board[7][3] = new Queen(Black, this);
 	board[7][4] = new King(Black, this);
 	board[7][5] = new Bishop(Black, this);
 	board[7][6] = new Knight(Black, this);
-
 	board[7][7] = new Rook(Black, this);
 
 	printBoard();
@@ -165,6 +162,60 @@ void ChessBoard::submitMove(string origin, string destination)
 
 }
 
+int ChessBoard::verifyMove(int originRow, int originColumn, int destinationRow, 
+				int destinationColumn)
+{
+	if(!(rangeCheck(originRow) && rangeCheck(originColumn) && 
+		rangeCheck(destinationRow) && rangeCheck(destinationColumn)))
+		return 1;
+
+	if(board[originRow][originColumn] == NULL)
+	{
+		return 3;
+	}
+
+	if((this->white_turn != board[originRow][originColumn]->getSide()))
+	{
+		return 4;
+
+	}
+
+	if(board[destinationRow][destinationColumn] != NULL)
+	{
+		if(board[destinationRow][destinationColumn]->getSide() == 
+					board[originRow][originColumn]->getSide())
+		{
+			return 5;
+		}
+	}
+
+	if(!(board[originRow][originColumn]->isMoveValid(originColumn, originRow,
+					destinationColumn,
+					destinationRow)))
+	{
+		return 6;
+	}
+
+	if(board[originRow][originColumn]->getName() == "king" 
+							&& castlingInfo->castle)
+	{
+		if(verifyCastle(originRow, originColumn, destinationRow, 
+				destinationColumn))
+		{
+			return 0;
+		} else
+		{
+			castlingInfo->castle = false;
+			return 6;
+		}	
+	} else if((!checkDetect(originRow, originColumn, destinationRow, 
+				destinationColumn)))
+		return 7;
+
+	return 0;
+
+}
+
 bool ChessBoard::verifyCastle(int originRow, int originColumn, int destinationRow, 
 				int destinationColumn)
 {
@@ -249,60 +300,6 @@ bool ChessBoard::verifyCastle(int originRow, int originColumn, int destinationRo
 	}
 
 	return true;
-
-}
-
-int ChessBoard::verifyMove(int originRow, int originColumn, int destinationRow, 
-				int destinationColumn)
-{
-	if(!(rangeCheck(originRow) && rangeCheck(originColumn) && 
-		rangeCheck(destinationRow) && rangeCheck(destinationColumn)))
-		return 1;
-
-	if(board[originRow][originColumn] == NULL)
-	{
-		return 3;
-	}
-
-	if((this->white_turn != board[originRow][originColumn]->getSide()))
-	{
-		return 4;
-
-	}
-
-	if(board[destinationRow][destinationColumn] != NULL)
-	{
-		if(board[destinationRow][destinationColumn]->getSide() == 
-					board[originRow][originColumn]->getSide())
-		{
-			return 5;
-		}
-	}
-
-	if(!(board[originRow][originColumn]->isMoveValid(originColumn, originRow,
-					destinationColumn,
-					destinationRow)))
-	{
-		return 6;
-	}
-
-	if(board[originRow][originColumn]->getName() == "king" 
-							&& castlingInfo->castle)
-	{
-		if(verifyCastle(originRow, originColumn, destinationRow, 
-				destinationColumn))
-		{
-			return 0;
-		} else
-		{
-			castlingInfo->castle = false;
-			return 6;
-		}	
-	} else if((!checkDetect(originRow, originColumn, destinationRow, 
-				destinationColumn)))
-		return 7;
-
-	return 0;
 
 }
 

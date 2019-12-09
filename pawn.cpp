@@ -23,7 +23,7 @@ std::string Pawn::getName()
 bool Pawn::isMoveValid(int originColumn, int originRow, int destinationColumn,
 				int destinationRow){
 
-	//If moved backwards
+	//If pawn move backwards
 	if(((this->side == Black) && (destinationRow > originRow))
 		|| ((this->side == White) && (destinationRow < originRow)))
 		return false;
@@ -38,13 +38,13 @@ bool Pawn::isMoveValid(int originColumn, int originRow, int destinationColumn,
 				return true;
 	}
 
-	//If pawn advances 1 square forwards
+	//If pawn moves one forwards
 	if(abs(destinationRow - originRow) == 1 && 
 	abs(destinationColumn - originColumn) == 0 &&
 	board_->isPositionEmpty(destinationRow, destinationColumn))
 		return true;
 
-	//If pawn advances 2 squares forwards if it has moved yet and the path is not blocked
+	//Pawn moves two forwards on first move to an empty square
 	if((abs(destinationRow - originRow) == 2) && 
 	abs(destinationColumn - originColumn) == 0 &&
 	!(this->hasMoved) && 
