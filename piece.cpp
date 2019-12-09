@@ -4,7 +4,7 @@
 
 using namespace std;
 
-void Piece::movedOn()
+void Piece::setMoved()
 {
     if(hasMoved == false)
       hasMoved = true;
@@ -12,12 +12,12 @@ void Piece::movedOn()
     return;
 }
 
-std::string Piece::getSide()
+std::string Piece::printSide()
 {
-  if(side == Black)
-    return "Black";
-  else
-    return "White";
+	if(side == Black)
+		return "Black";
+	else
+		return "White";
 }
 
 bool Piece::diagonalCheck(int originRow, int originColumn, int destinationRow, int destinationColumn)

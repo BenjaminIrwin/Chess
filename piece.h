@@ -8,32 +8,38 @@
 class ChessBoard;
 
 class Piece {
-public:
+protected:
 	colour side;
 	bool hasMoved;
 	ChessBoard* board_;
-
-	//Piece constructor
-	Piece(colour side, ChessBoard* board_) : side(side), hasMoved(false), board_(board_) {};
-
-	//Piece destructor
-	virtual ~Piece(){};
-
-	void movedOn();
-
-	std::string getSide();
 
 	bool diagonalCheck(int originRow, int originColumn, int destinationRow, 
 				int destinationColumn);
 
 	bool straightCheck(int originRow, int originColumn, int destinationRow, 
 				int destinationColumn);
+public:
+	//Piece constructor
+	Piece(colour side, ChessBoard* board_) : side(side), hasMoved(false), 
+						board_(board_) {};
 
-	//PURE virtual
+	//Piece destructor
+	virtual ~Piece(){};
+
 	virtual char getSymbol() = 0;
-	virtual bool isMoveValid(int originColumn, int originRow, int destinationColumn, 
-					int destinationRow) = 0;
+
+	virtual bool isMoveValid(int originColumn, int originRow, 
+				int destinationColumn, int destinationRow) = 0;
+
 	virtual std::string getName() = 0;
+
+	colour getSide() const {return side;} 
+
+	std::string printSide();
+
+	void setMoved();
+
+	bool getMoved() const {return hasMoved;} 
 
 };
 

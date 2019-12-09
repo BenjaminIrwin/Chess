@@ -26,7 +26,7 @@ public:
 
 	~ChessBoard();
 
-	void initChessBoard();
+	void resetBoard();
 
 	void printBoard();
 

@@ -12,8 +12,10 @@ using namespace std;
 
 ChessBoard::ChessBoard()
 {
-	initChessBoard();
 	castlingInfo = new castleData;
+	for (int i = 0; i < NUM_ROWS; i++)
+		for (int j = 0; j < NUM_COLS; j++)
+			board[i][j] = NULL;
 }
 
 ChessBoard::~ChessBoard()
@@ -21,9 +23,10 @@ ChessBoard::~ChessBoard()
 	delete castlingInfo;
 }
 
-void ChessBoard::initChessBoard()
+void ChessBoard::resetBoard()
 {
 	cout << "New game beginning..." << endl << endl;
+	white_turn = true;
 
 	for (int i = 0; i < NUM_ROWS; i++)
 		for (int j = 0; j < NUM_COLS; j++)
@@ -87,13 +90,13 @@ void ChessBoard::submitMove(string origin, string destination)
 	if(castlingInfo->castle)
 	{
 
-		cout << board[originRow][originColumn]->getSide() << " " 
+		cout << board[originRow][originColumn]->printSide() << " " 
 		<< board[originRow][originColumn]->getName() 
 		<< " executes castle." << endl;
 
-		board[originRow][originColumn]->movedOn();
+		board[originRow][originColumn]->setMoved();
 		board[castlingInfo->rookOriginRow]
-				[castlingInfo->rookOriginColumn]->movedOn();
+				[castlingInfo->rookOriginColumn]->setMoved();
 
 		move(originRow, originColumn, originRow, destinationColumn);
 		move(castlingInfo->rookOriginRow, castlingInfo->rookOriginColumn, 
@@ -105,21 +108,21 @@ void ChessBoard::submitMove(string origin, string destination)
 	}
 	else
 	{
-		cout << board[originRow][originColumn]->getSide() << " " << 
+		cout << board[originRow][originColumn]->printSide() << " " << 
 		board[originRow][originColumn]->getName() << " moves from " 
 		<< origin << " to " << destination << endl;
 
 		if(board[destinationRow][destinationColumn] != NULL)
 		{
-			cout << board[originRow][originColumn]->getSide() 
+			cout << board[originRow][originColumn]->printSide() 
 			<< " takes " <<
-			board[destinationRow][destinationColumn]->getSide()
+			board[destinationRow][destinationColumn]->printSide()
 			<< " " << board[destinationRow][destinationColumn]
 			->getName() << endl;
 		}
 
 		move(originRow, originColumn, destinationRow, destinationColumn);
-		board[destinationRow][destinationColumn]->movedOn();
+		board[destinationRow][destinationColumn]->setMoved();
 	}
 
 	this->white_turn = !(this->white_turn);
@@ -134,8 +137,7 @@ void ChessBoard::submitMove(string origin, string destination)
 
 		if(mateDetect())
 		{
-			cout << "mate! Game over." << endl;
-			return;
+			cout << "mate! Game over" << endl;
 		}
 
 		cout << "." << endl; 		
@@ -210,7 +212,7 @@ bool ChessBoard::verifyCastle(int originRow, int originColumn, int destinationRo
 	}
 
 	if(board[castlingInfo->rookOriginRow][castlingInfo->rookOriginColumn]
-								->hasMoved)
+								->getMoved())
 		return false;
 	
 	if(kingside)
@@ -254,7 +256,7 @@ int ChessBoard::verifyMove(int originRow, int originColumn, int destinationRow,
 		return 3;
 	}
 
-	if((this->white_turn != board[originRow][originColumn]->side))
+	if((this->white_turn != board[originRow][originColumn]->getSide()))
 	{
 		return 4;
 
@@ -262,8 +264,8 @@ int ChessBoard::verifyMove(int originRow, int originColumn, int destinationRow,
 
 	if(board[destinationRow][destinationColumn] != NULL)
 	{
-		if(board[destinationRow][destinationColumn]->side == 
-					board[originRow][originColumn]->side)
+		if(board[destinationRow][destinationColumn]->getSide() == 
+					board[originRow][originColumn]->getSide())
 		{
 			return 5;
 		}
@@ -303,9 +305,9 @@ bool ChessBoard::mateDetect()
 		for (int j = 0; j < NUM_COLS; j++)
 		{
 			if (board[i][j] != NULL && 
-				(((board[i][j]->getSide() == "Black") && 
+				(((board[i][j]->getSide() == Black) && 
 				(white_turn == false)) || 
-				((board[i][j]->getSide() == "White") && 
+				((board[i][j]->getSide() == White) && 
 				(white_turn == true))))
 					{
 						for(int k = 0; k < NUM_ROWS; 
@@ -361,7 +363,7 @@ void ChessBoard::locateKing(int& column, int& row)
 	for(int i = 0; i < NUM_ROWS; i++)
 		for(int j = 0; j < NUM_COLS; j++)
 			if(board[i][j] != NULL && 
-				board[i][j]->side == white_turn && 
+				board[i][j]->getSide() == white_turn && 
 				board[i][j]->getName() == "king")
 			{
 				row = i;
@@ -379,7 +381,7 @@ bool ChessBoard::check()
 
 	for(int i = 0; i < NUM_ROWS; i++)
 		for(int j = 0; j < NUM_COLS; j++)
-			if(board[i][j] != NULL && board[i][j]->side != white_turn)
+			if(board[i][j] != NULL && board[i][j]->getSide() != white_turn)
 				if(board[i][j]->isMoveValid(j, i, column, row))
 				{
 					return true;

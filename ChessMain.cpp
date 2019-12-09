@@ -13,7 +13,7 @@ int main() {
 	ChessBoard cb;
 	cout << '\n';
 
-
+/*
 while(true)
 {
 //	if(cb.canKingMove())
@@ -28,9 +28,9 @@ while(true)
 	cb.submitMove(start, end);
 	cout << endl;
 }
+*/
 
 /*
-
 cout << "Move 1: " << endl;
 	cb.submitMove("G2", "G3");//invalid
 	cout << '\n';
@@ -51,11 +51,12 @@ cout << "Move 5: " << endl;
 	cb.submitMove("H3", "E6");//valid
 	cout << '\n';
 
+*/
 	cout << "=========================\n";
 	cout << "Alekhine vs. Vasic (1931)\n";
 	cout << "=========================\n\n";
 
-//	cb.resetBoard();
+	cb.resetBoard();
 	cout << '\n';
 	cb.submitMove("E2", "E3");
 
@@ -95,9 +96,7 @@ cout << "Move 5: " << endl;
 
 	cb.submitMove("C8", "E6");
 
-*/
-/*
-//	cb.resetBoard();
+	cb.resetBoard();
 	cout << '\n';
 
 	cb.submitMove("E2", "E4");
@@ -142,6 +141,5 @@ cout << "Move 5: " << endl;
 
 	cb.submitMove("D3", "G6");
 	cout << '\n';
-*/
 	return 0;
 }
