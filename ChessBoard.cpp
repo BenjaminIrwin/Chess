@@ -124,6 +124,8 @@ void ChessBoard::submitMove(string origin, string destination)
 			board[destinationRow][destinationColumn]->printSide()
 			<< " " << board[destinationRow][destinationColumn]
 			->getName() << endl;
+
+			delete board[destinationRow][destinationColumn];
 		}
 
 		move(originRow, originColumn, destinationRow, destinationColumn);
