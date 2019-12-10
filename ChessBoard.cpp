@@ -16,6 +16,9 @@ ChessBoard::ChessBoard()
 	for (int i = 0; i < NUM_ROWS; i++)
 		for (int j = 0; j < NUM_COLS; j++)
 			board[i][j] = NULL;
+	
+	resetBoard();
+
 }
 
 ChessBoard::~ChessBoard()
@@ -32,13 +35,20 @@ ChessBoard::~ChessBoard()
 
 void ChessBoard::resetBoard()
 {
-	cout << "New game beginning..." << endl;
-	white_turn = true;
+	cout << "A new chess game is started!" << endl;
 
+	/* Resetting turn to white, cleaning board and resetting board 
+	pointers to NULL in case previous game has been played in this session*/
+	white_turn = true;
 	for (int i = 0; i < NUM_ROWS; i++)
 		for (int j = 0; j < NUM_COLS; j++)
-			board[i][j] = NULL;
-
+		{
+			if(board[i][j] != NULL)
+			{
+				delete board[i][j];
+				board[i][j] = NULL;
+			}
+		}
 
 	//Set pawns 
 	for (int j = 0; j < NUM_COLS; j++)
@@ -72,7 +82,9 @@ void ChessBoard::resetBoard()
 
 void ChessBoard::submitMove(string origin, string destination)
 {
-	int error = input_check(origin, destination);
+	int error = 0;
+
+	error = input_check(origin, destination);
 	if(error != 0)
 	{
 		checkError(error);
