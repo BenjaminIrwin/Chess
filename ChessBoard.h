@@ -70,7 +70,7 @@ private:
 		3. Whether the relevant rook has already moved
 		4. If the king's proposed path will not lead it through check
 	Returns true if castling is legitimate and false otherwise.*/
-	bool verifyCastle(int originRow, int originColumn, int destinationRow, 
+	bool verifyCastle(int originRow, int originColumn, 
 				int destinationColumn);
 public:
 	/*Chessboard constructor initialises 2d array of pointers to pieces

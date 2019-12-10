@@ -214,8 +214,7 @@ int ChessBoard::verifyMove(int originRow, int originColumn, int destinationRow,
 	if(board[originRow][originColumn]->getName() == "King" 
 							&& castlingInfo->castle)
 	{
-		if(verifyCastle(originRow, originColumn, destinationRow, 
-				destinationColumn))
+		if(verifyCastle(originRow, originColumn, destinationColumn))
 		{
 			return 0;
 		} else
@@ -231,7 +230,7 @@ int ChessBoard::verifyMove(int originRow, int originColumn, int destinationRow,
 
 }
 
-bool ChessBoard::verifyCastle(int originRow, int originColumn, int destinationRow, 
+bool ChessBoard::verifyCastle(int originRow, int originColumn, 
 				int destinationColumn)
 {
 
