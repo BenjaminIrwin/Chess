@@ -18,7 +18,7 @@ char King::getSymbol()
 
 std::string King::getName()
 {
-	return "king";
+	return "King";
 }
 
 bool King::isMoveValid(int originColumn, int originRow, int destinationColumn, 

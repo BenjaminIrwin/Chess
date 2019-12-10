@@ -17,7 +17,7 @@ char Queen::getSymbol(){
 
 std::string Queen::getName()
 {
-	return "queen";
+	return "Queen";
 }
 
 bool Queen::isMoveValid(int originColumn, int originRow, int destinationColumn,	

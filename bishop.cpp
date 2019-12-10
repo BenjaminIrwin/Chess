@@ -18,7 +18,7 @@ char Bishop::getSymbol(){
 
 std::string Bishop::getName()
 {
-	return "bishop";
+	return "Bishop";
 }
 
 bool Bishop::isMoveValid(int originColumn, int originRow, int destinationColumn,

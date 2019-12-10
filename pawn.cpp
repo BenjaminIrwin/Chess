@@ -17,7 +17,7 @@ char Pawn::getSymbol(){
 
 std::string Pawn::getName()
 {
-	return "pawn";
+	return "Pawn";
 }
 
 bool Pawn::isMoveValid(int originColumn, int originRow, int destinationColumn,

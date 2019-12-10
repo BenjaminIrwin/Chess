@@ -17,7 +17,7 @@ char Rook::getSymbol(){
 
 std::string Rook::getName()
 {
-	return "rook";
+	return "Rook";
 }
 
 

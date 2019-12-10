@@ -107,7 +107,7 @@ void ChessBoard::submitMove(string origin, string destination)
 	if(castlingInfo->castle)
 	{
 
-		cout << board[originRow][originColumn]->printSide() << " " 
+		cout << board[originRow][originColumn]->printSide() << "'s " 
 		<< board[originRow][originColumn]->getName() 
 		<< " executes castle.";// << endl;
 
@@ -125,7 +125,7 @@ void ChessBoard::submitMove(string origin, string destination)
 	}
 	else
 	{
-		cout << board[originRow][originColumn]->printSide() << " " << 
+		cout << board[originRow][originColumn]->printSide() << "'s " << 
 		board[originRow][originColumn]->getName() << " moves from " 
 		<< origin << " to " << destination;// << endl;
 
@@ -133,7 +133,7 @@ void ChessBoard::submitMove(string origin, string destination)
 		{
 			cout << " taking " <<
 			board[destinationRow][destinationColumn]->printSide()
-			<< " " << board[destinationRow][destinationColumn]
+			<< "'s " << board[destinationRow][destinationColumn]
 			->getName();// << endl;
 
 			delete board[destinationRow][destinationColumn];
@@ -151,13 +151,13 @@ void ChessBoard::submitMove(string origin, string destination)
 		
 		inCheck = true;
 		if(white_turn)
-			cout << "White in check";		
+			cout << "White is in check";		
 		else
-			cout << "Black in check";
+			cout << "Black is in check";
 
 		if(mateDetect())
 		{
-			cout << "mate! Game over";
+			cout << "mate";
 		}
 
 	} else
@@ -165,7 +165,7 @@ void ChessBoard::submitMove(string origin, string destination)
 		inCheck = false;
 		if(mateDetect())
 		{
-			cout << endl << "Stalemate! Game over";
+			cout << endl << "Stalemate";
 		}
 	}
 	
@@ -211,7 +211,7 @@ int ChessBoard::verifyMove(int originRow, int originColumn, int destinationRow,
 		return 6;
 	}
 
-	if(board[originRow][originColumn]->getName() == "king" 
+	if(board[originRow][originColumn]->getName() == "King" 
 							&& castlingInfo->castle)
 	{
 		if(verifyCastle(originRow, originColumn, destinationRow, 
@@ -386,7 +386,7 @@ void ChessBoard::locateKing(int& column, int& row)
 		for(int j = 0; j < NUM_COLS; j++)
 			if(board[i][j] != NULL && 
 				board[i][j]->getSide() == white_turn && 
-				board[i][j]->getName() == "king")
+				board[i][j]->getName() == "King")
 			{
 				row = i;
 				column = j;
