@@ -77,7 +77,7 @@ void ChessBoard::resetBoard()
 	board[7][6] = new Knight(Black, this);
 	board[7][7] = new Rook(Black, this);
 
-	printBoard();
+	//printBoard();
 }
 
 void ChessBoard::submitMove(string origin, string destination)
@@ -109,7 +109,7 @@ void ChessBoard::submitMove(string origin, string destination)
 
 		cout << board[originRow][originColumn]->printSide() << " " 
 		<< board[originRow][originColumn]->getName() 
-		<< " executes castle." << endl;
+		<< " executes castle.";// << endl;
 
 		board[originRow][originColumn]->setMoved();
 		board[castlingInfo->rookOriginRow]
@@ -127,15 +127,14 @@ void ChessBoard::submitMove(string origin, string destination)
 	{
 		cout << board[originRow][originColumn]->printSide() << " " << 
 		board[originRow][originColumn]->getName() << " moves from " 
-		<< origin << " to " << destination << endl;
+		<< origin << " to " << destination;// << endl;
 
 		if(board[destinationRow][destinationColumn] != NULL)
 		{
-			cout << board[originRow][originColumn]->printSide() 
-			<< " takes " <<
+			cout << " taking " <<
 			board[destinationRow][destinationColumn]->printSide()
 			<< " " << board[destinationRow][destinationColumn]
-			->getName() << endl;
+			->getName();// << endl;
 
 			delete board[destinationRow][destinationColumn];
 		}
@@ -148,9 +147,11 @@ void ChessBoard::submitMove(string origin, string destination)
 
 	if(check())
 	{
+		cout << endl;
+		
 		inCheck = true;
 		if(white_turn)
-			cout <<  "White in check";		
+			cout << "White in check";		
 		else
 			cout << "Black in check";
 
@@ -159,20 +160,20 @@ void ChessBoard::submitMove(string origin, string destination)
 			cout << "mate! Game over";
 		}
 
-		cout << "." << endl; 		
 	} else
 	{
 		inCheck = false;
 		if(mateDetect())
 		{
-			cout << "Stalemate! Game over." << endl;
+			cout << endl << "Stalemate! Game over";
 		}
 	}
-
-
-	printBoard();
-
+	
 	cout << endl;
+
+//	printBoard();
+//	if(!white_turn)
+//		cout << endl;
 
 }
 
