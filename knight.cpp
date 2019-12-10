@@ -2,18 +2,6 @@
 
 using namespace std;
 
-char Knight::getSymbol(){
-
-	if(this->side == White)
-	{
-		return 'n';
-	}
-	else
-	{
-		return 'N';
-	}
-}
-
 std::string Knight::getName()
 {
 	return "Knight";

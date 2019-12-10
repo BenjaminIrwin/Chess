@@ -22,12 +22,6 @@ private:
 		
 	} *castlingInfo;
 
-	void printBoard();
-
-	void printFrame(int row);
-
-	void printRow(int row);
-
 	/* 'Moves' a piece from origin to destination. Origin square 
 	set to NULL.*/
 	void move(int originRow, int originColumn, int destinationRow, 

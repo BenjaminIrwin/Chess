@@ -3,19 +3,6 @@
 
 using namespace std;
 
-char Bishop::getSymbol(){
-
-		if(this->side == White)
-		{
-			return 'b';
-		}
-		else
-		{
-			return 'B';
-		}
-
-}
-
 std::string Bishop::getName()
 {
 	return "Bishop";

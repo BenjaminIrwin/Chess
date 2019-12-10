@@ -76,8 +76,6 @@ void ChessBoard::resetBoard()
 	board[7][5] = new Bishop(Black, this);
 	board[7][6] = new Knight(Black, this);
 	board[7][7] = new Rook(Black, this);
-
-	//printBoard();
 }
 
 void ChessBoard::submitMove(string origin, string destination)
@@ -109,7 +107,7 @@ void ChessBoard::submitMove(string origin, string destination)
 
 		cout << board[originRow][originColumn]->printSide() << "'s " 
 		<< board[originRow][originColumn]->getName() 
-		<< " executes castle.";// << endl;
+		<< " executes castle.";
 
 		board[originRow][originColumn]->setMoved();
 		board[castlingInfo->rookOriginRow]
@@ -127,14 +125,14 @@ void ChessBoard::submitMove(string origin, string destination)
 	{
 		cout << board[originRow][originColumn]->printSide() << "'s " << 
 		board[originRow][originColumn]->getName() << " moves from " 
-		<< origin << " to " << destination;// << endl;
+		<< origin << " to " << destination;
 
 		if(board[destinationRow][destinationColumn] != NULL)
 		{
 			cout << " taking " <<
 			board[destinationRow][destinationColumn]->printSide()
 			<< "'s " << board[destinationRow][destinationColumn]
-			->getName();// << endl;
+			->getName();
 
 			delete board[destinationRow][destinationColumn];
 		}
@@ -170,10 +168,6 @@ void ChessBoard::submitMove(string origin, string destination)
 	}
 	
 	cout << endl;
-
-//	printBoard();
-//	if(!white_turn)
-//		cout << endl;
 
 }
 
@@ -424,40 +418,3 @@ void ChessBoard::signalCastle()
 {
 	castlingInfo->castle = true;
 }	
-
-void ChessBoard::printBoard() {
-	cout << "    ";
-	for (int r=0; r<NUM_ROWS; r++)
-		cout << (char) ('A'+r) << "   ";
-	cout << '\n';
-	for (int r=0; r<NUM_ROWS; r++) {
-		printFrame(r);
-		printRow(r);
-	}
-	printFrame(NUM_ROWS);
-}
-
-void ChessBoard::printFrame(int row) {
-	if (!(row % 8))
-		cout << "  +===============================+" << '\n';
-	else
-		cout << "  +---+---+---+---+---+---+---+---+" << '\n';
-}
-
-void ChessBoard::printRow(int row) {
-	cout << (char) ('1' + row) << " ";
-	for (int i=0; i<NUM_COLS; i++) {
-		cout << '|' << " ";
-		if(board[row][i] == NULL)
-		{
-			cout << ' ';
-		}
-		else
-		{
-			cout << board[row][i]->getSymbol();
-		}
-
-		cout << ' ';
-	}
-	cout << "|" << '\n';
-}

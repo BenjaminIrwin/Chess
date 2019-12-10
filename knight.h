@@ -10,8 +10,6 @@ public:
 
 	~Knight() {};
 
-	char getSymbol();
-
 	std::string getName();
 
 	bool isMoveValid(int originColumn, int originRow, int destinationColumn,

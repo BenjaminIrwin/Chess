@@ -3,19 +3,6 @@
 
 using namespace std;
 
-char King::getSymbol()
-{
-
-	if(this->side == White)
-	{
-		return 'k';
-	}
-	else
-	{
-		return 'K';
-	}
-}
-
 std::string King::getName()
 {
 	return "King";

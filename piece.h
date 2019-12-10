@@ -32,9 +32,6 @@ public:
 	//Virtual piece destructor
 	virtual ~Piece(){};
 
-	//Pure virtual: returns symbol for print
-	virtual char getSymbol() = 0;
-
 	/*Pure virtual checks move validity with respect to:
 	1. The range of the relevant piece.
 	2. Whether there are any obstructions in its path (knight exempt).*/

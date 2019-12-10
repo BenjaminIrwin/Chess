@@ -3,18 +3,6 @@
 using namespace std;
 #include <iostream>
 
-char Rook::getSymbol(){
-
-		if(this->side == White)
-		{
-			return 'r';
-		}
-		else
-		{
-			return 'R';
-		}
-}
-
 std::string Rook::getName()
 {
 	return "Rook";

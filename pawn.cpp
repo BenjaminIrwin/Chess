@@ -3,18 +3,6 @@
 #include <cstdlib>
 using namespace std;
 
-char Pawn::getSymbol(){
-
-		if(this->side == White)
-		{
-			return 'p';
-		}
-		else
-		{
-			return 'P';
-		}
-}
-
 std::string Pawn::getName()
 {
 	return "Pawn";

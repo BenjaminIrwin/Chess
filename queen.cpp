@@ -3,18 +3,6 @@
 
 using namespace std;
 
-char Queen::getSymbol(){
-
-		if(this->side == White)
-		{
-			return 'q';
-		}
-		else
-		{
-			return 'Q';
-		}
-}
-
 std::string Queen::getName()
 {
 	return "Queen";
